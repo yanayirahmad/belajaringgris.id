@@ -485,7 +485,8 @@ function renderMap(){
   }
   const totalMastered = Object.values(state.mastery).filter(m => m.correct > 0).length;
   const totalWords = LEVELS.reduce((a, l) => a + l.words.length, 0);
-  return '<div class="topbar"><div class="brand">Lidah — A1<small>Level 1–20 · Pemula</small></div>' +
+  return '<a href="index.html" style="display:inline-block;font-size:13px;color:var(--ink-soft);text-decoration:none;margin-bottom:14px;">&larr; Kembali ke Beranda</a>' +
+    '<div class="topbar"><div class="brand">BelajarInggris.id — A1<small>Level 1–20 · Pemula</small></div>' +
     '<div class="streakline"><b>' + totalMastered + '</b> / ' + totalWords + ' kata dikuasai</div></div>' +
     (!SPEECH_SUPPORTED ? '<div class="notice">Browser ini sepertinya tidak mendukung pengenalan suara. Gunakan Google Chrome untuk hasil terbaik.</div>' : '') +
     '<div class="catalog">' + rows + '</div>' +
