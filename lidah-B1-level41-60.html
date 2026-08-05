@@ -256,7 +256,7 @@ function getRecognition(){
   return r;
 }
 const SPEECH_SUPPORTED = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
-
+const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 
 function esc(s){ return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
@@ -342,7 +342,7 @@ function doRecord(){
   render();
 
   // Rekam audio paralel (untuk diputar ulang) menggunakan MediaRecorder, terpisah dari speech recognition
-  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder){
+  if(!IS_MOBILE && navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder){
     navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
       session._stream = stream;
       const mr = new MediaRecorder(stream);
