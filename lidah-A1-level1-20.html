@@ -245,6 +245,15 @@ function speak(text, rate){
   }, 150);
 }
 
+let ttsWarmed = false;
+function warmUpTTS(){
+  if(ttsWarmed || typeof speechSynthesis === 'undefined') return;
+  ttsWarmed = true;
+  const u = new SpeechSynthesisUtterance(' ');
+  u.volume = 0;
+  speechSynthesis.speak(u);
+}
+  
 // ====== SPEECH-TO-TEXT ======
 function getRecognition(){
   const R = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -295,6 +304,7 @@ let session = null;
 
 function startTask(levelIdx, taskIdx){
   if(!isTaskUnlocked(levelIdx, taskIdx)) return;
+  warmUpTTS();
   const level = getLevel(levelIdx);
   const isReview = taskIdx === 5;
   const task = level.tasks[taskIdx];
@@ -309,6 +319,7 @@ function startTask(levelIdx, taskIdx){
 }
 
 function startReview(checkpoint){
+  warmUpTTS();
   const allWordsSoFar = [];
   for(let i = 0; i < checkpoint; i++){ allWordsSoFar.push(...LEVELS[i].words); }
   const words = sampleWords(allWordsSoFar, 20);
