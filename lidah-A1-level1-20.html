@@ -236,7 +236,7 @@ function speak(text, rate){
   if(typeof speechSynthesis === 'undefined'){ alert('Browser ini tidak mendukung text-to-speech.'); return; }
   speechSynthesis.cancel();
   setTimeout(() => {
-  const u = new SpeechSynthesisUtterance('. ' + text);
+  const u = new SpeechSynthesisUtterance('  ' + text);
   const v = pickVoice();
   if(v) u.voice = v;
   u.lang = 'en-US';
